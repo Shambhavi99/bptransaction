@@ -1,0 +1,247 @@
+<mvc:View controllerName="com.te.pollution.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:u="sap.ui.unified"
+    xmlns:table="sap.ui.table"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
+    displayBlock="true"
+    height="100%"
+    busyIndicatorDelay="0"
+>
+    <Page id="bpcreate" showHeader="true" title="Business Partner(Create)">
+        <headerContent>
+            <Toolbar>
+                <ToolbarSpacer />
+                <Button icon="sap-icon://download" text="Download Template"
+                    press="onPressExportToExcel"
+                    tooltip="Download Template" />
+                <Button icon="sap-icon://upload" text="Upload Excel Data" press="onShowHide"
+                    tooltip="Upload Excel Data to Application" />
+                <Button icon="sap-icon://approvals" text="Approval Screen"
+                    press="onNavigateToApproval"
+                    tooltip="Go to Approval Screen" />
+            </Toolbar>
+        </headerContent> 
+
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <u:FileUploader
+                    id="idFileUploader"
+                    fileType="xlsx"
+                    mimeType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    change="onFileChange"
+                    width="auto"
+                    visible="false" />
+
+                <ScrollContainer
+                    horizontal="true"
+                    vertical="true"
+                    height="100%"
+                    width="100%"
+                >
+                    <VBox class="sapUiSmallMargin">
+                        <ScrollContainer
+                            horizontal="true"
+                            vertical="false"
+                            height="auto"
+                            width="100%"
+                        >
+                            <table:Table id="idDataTable" rows="{path: 'sheetdata>/data'}"
+                                visible="{= ${sheetdata>/validationErrors}.length === 0 }">
+                                <table:columns>
+                                    <!-- <table:Column width="150px">
+                                        <Label text="Customer Number" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Customernumber}" />
+                                        </table:template>
+                                    </table:Column> -->
+                                    <table:Column width="150px">
+                                        <Label text="Customer Account Group" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Custacctgroup}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="150px">
+                                        <Label text="PAN Number" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Panno}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="100px">
+                                        <Label text="Title" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Title}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="150px">
+                                        <Label text="Name" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Name}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="150px">
+                                        <Label text="Street" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Street}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="100px">
+                                        <Label text="City" />
+                                        <table:template>
+                                            <Text text="{sheetdata>City}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="150px">
+                                        <Label text="District" />
+                                        <table:template>
+                                            <Text text="{sheetdata>District}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="100px">
+                                        <Label text="Postal Code" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Postalcode}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="100px">
+                                        <Label text="Country" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Country}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="100px">
+                                        <Label text="Language" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Language}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="150px">
+                                        <Label text="Search Term" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Searchterm1}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="150px">
+                                        <Label text="Company Code" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Companycode}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="200px">
+                                        <Label text="Reconciliation Account" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Reconcacct}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="200px">
+                                        <Label text="Sales Organisation" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Salesorg}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="200px">
+                                        <Label text="Distribution Channel" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Distchannel}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="200px">
+                                        <Label text="Division" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Division}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="200px">
+                                        <Label text="Currency" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Currency}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="200px">
+                                        <Label text="Pricing Procedure" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Pricingproc}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="200px">
+                                        <Label text="Region" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Region}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="200px">
+                                        <Label text="Shipping Condition" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Shipcond}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="200px">
+                                        <Label text="Customer Group" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Custgroup}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="200px">
+                                        <Label text="Sales District" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Salesdistrict}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="200px">
+                                        <Label text="Sales Office" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Salesoffice}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="200px">
+                                        <Label text="Price Group" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Pricegroup}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="200px">
+                                        <Label text="Incoterms" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Incoterms}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="200px">
+                                        <Label text="Incoterms Location" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Incotermsloc}" />
+                                        </table:template>
+                                    </table:Column>
+                                    <table:Column width="200px">
+                                        <Label text="Payment Terms" />
+                                        <table:template>
+                                            <Text text="{sheetdata>Paymentterms}" />
+                                        </table:template>
+                                    </table:Column>
+                                </table:columns>
+                            </table:Table>
+                        </ScrollContainer>
+
+                        <MessageStrip id="idValidationMessage" text="{sheetdata>/validationErrors}"
+                            type="Error" visible="{= ${sheetdata>/validationErrors}.length > 0 }" />
+
+                        <Button text="Submit" press="onSaveData" type="Emphasized" />
+                    </VBox>
+                </ScrollContainer>
+
+                <viz:Popover id="idPopOver" />
+                <viz:VizFrame
+                    id="idVizFrame"
+                    uiConfig="{applicationSet:'fiori'}"
+                    height="400px"
+                    width="100%"
+                    vizType="line"
+                    class="sapUiResponsiveContentPadding"
+                >
+                    <!-- Remove any additional viz:content if not needed -->
+                </viz:VizFrame>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

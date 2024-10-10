@@ -1,0 +1,14 @@
+[
+    {
+        "title" :"Business Partner Creation",
+        "route" :"countdown"
+    },
+    {
+        "title" :"List of Business Partners",
+        "route" :"covid"
+    },
+    {
+        "title": "Approval Screen",
+        "route": "vacc"
+    }
+]

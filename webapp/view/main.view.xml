@@ -1,0 +1,24 @@
+<mvc:View
+	controllerName="com.te.pollution.controller.main"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+	displayBlock="true"
+	height="100%"
+	busyIndicatorDelay="0"
+>
+<Page id="tilesbpcreate" title="{i18n>title}">
+    <content>
+        <FlexBox
+            alignItems="Start"
+            justifyContent="Center"                
+        >
+        <l:VerticalLayout id="vLayoutStudent">
+            <l:HorizontalLayout id="hLayoutStudent" content="{tiles>/}" allowWrapping="true">
+                <GenericTile id="genericTilebp" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{tiles>title}" press="press(${tiles>route})" />
+            </l:HorizontalLayout>
+        </l:VerticalLayout>
+        </FlexBox>
+    </content>
+</Page>
+</mvc:View>
